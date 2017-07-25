@@ -1,0 +1,16 @@
+{
+  "user": {
+    "login": "demo",
+    "firstName": "demo",
+    "email": "info@imajing.fr",
+    "lastName": "demo",
+    "role": {
+      "name": "user"
+    },
+    "subscriptionType": "FULL",
+    "lastLogin": "07-07-2017 11:05:36",
+    "bingKey": "AncDinoX9ump6mjz8Ml6QpaG2p26VLMCVxHZpjnYBm1DyE_ceZmODFEbU_N9Hbg2",
+    "cartographicKey": "imajnet133",
+    "unit": "m"
+  }
+}

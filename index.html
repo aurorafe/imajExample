@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta charset="UTF-8">
+  <script type="text/javascript">
+    /*Javascript application url global variable */
+    function removePortFromURL (url) {
+      var index = url.indexOf(':80');
+      if (index !== -1 && url.indexOf(':8080') === -1) {
+        var toReturn = url.substring(0, index);
+        if (index + 3 < url.length) {
+          toReturn += url.substring(index + 3, url.length);
+        }
+        return toReturn;
+      } else {
+        return url;
+      }
+    }
+    var applicationUrl = './mvc/';
+    applicationUrl = applicationUrl.substring(1, applicationUrl.length);
+    var index = applicationUrl.indexOf(';jsessionid');
+    if (index !== -1) {
+      applicationUrl = applicationUrl.substring(0, index);
+    }
+
+    var geoserverUrl = window.location.protocol + removePortFromURL('//web.imajnet.net:80/geoserver/');
+    var applicationDomain = window.location.protocol + removePortFromURL("//web.imajnet.net:80") + '/';
+    applicationUrl = applicationDomain + applicationUrl;
+    var rootUrl = applicationUrl.replace('mvc/', '');
+    var clientAppUrl = rootUrl;
+
+    var IMAJNET_THEME_NAME = 'imajnet';
+    var themeName = 'imajnet';
+    var imajnetVersion = '';
+    var imajnetBuildDate = '';
+  </script>
+  <script type="text/javascript" src='./ImajnetLib/lib/proj4js/proj4js.js'></script>
+  <script type="text/javascript" src='./ImajnetLib/lib/proj4js/merc.js'></script>
+  <script type="text/javascript" src='./ImajnetLib/lib/proj4js/proj4.js'></script>
+  <script type="text/javascript" src='./ImajnetLib/lib/jquery/jquery-1.9.1.min.js'></script>
+  <script type="text/javascript"
+          src='./ImajnetLib/lib/jquery/jquery-migrate-1.1.0.min.js'></script>
+  <!--    If update jquery-ui check dynatree drag and popups modal(one over other z-index) -->
+  <script type="text/javascript"
+          src='./ImajnetLib/lib/jquery-ui-1.9.0.custom/js/jquery-ui-1.9.0.custom.js'></script>
+  <script type="text/javascript"
+          src='./ImajnetLib/lib/jquery/jquery.mobile.custom.min.js'></script>
+  <script type="text/javascript" src='./ImajnetLib/lib/jquery-i18n/jquery.i18n.js'></script>
+  <script type="text/javascript" src='./ImajnetLib/lib/jquery-corner/jquery.corner.js'></script>
+  <script type="text/javascript"
+          src='./ImajnetLib/lib/touchSwipe/jquery.touchSwipe.min.js'></script>
+  <script type="text/javascript"
+          src='./ImajnetLib/lib/loadmask/jquery.loadmask.min.js'></script>
+  <script type="text/javascript" src='./ImajnetLib/lib/Raphael/raphael.js'></script>
+  <script type="text/javascript" src='./ImajnetLib/lib/jquery-url/jquery.url.js'></script>
+  <script type="text/javascript"
+          src='./ImajnetLib/lib/jquery-notify/jquery.notify.min.js'></script>
+  <script type="text/javascript"
+          src='./ImajnetLib/lib/colorbox/jquery.colorbox-min.js'></script>
+  <script type="text/javascript" src='./ImajnetLib/lib/jquery-combobox/combobox.js'></script>
+  <script type="text/javascript" src='./ImajnetLib/lib/threejs/three.min.js'></script>
+  <link rel="stylesheet" type="text/css" href='./ImajnetLib/css/imajnetLibrary.css'/>
+  <script type="text/javascript" src='./ImajnetLib/js/imajnetLibrary.js'></script>
+  <!-- JavaScript locale variables -->
+  <script type="text/javascript">
+    var locale = 'es'; //en_us. en_uk
+    var localeLanguage = 'es'; // en
+    var remoteAddress = '104.199.199.247';
+    //remoteAddress = '82.224.107.58'; Toulouse
+    //remoteAddress = '193.253.235.180'; Paris
+    //remoteAddress = '86.124.212.232 '; Craiova
+  </script>
+  <!-- Load app locale script-->
+  <!-- imajnet mode -->
+  <script type="text/javascript"
+          src='./resources/js/core/language/i18n/platform.locale-es.js'></script>
+  <script type="text/javascript">
+    //Set the current distionary
+    $.i18n.setDictionary($.app.app_i18n_dictionary);
+  </script>
+  <script type="text/javascript">
+    if (!window.console) {
+      console = {
+        log: function () {
+        },
+        warn: function () {
+        },
+        debug: function () {
+        },
+        error: function () {
+        }
+      };
+    }
+    var CATEGORY_INTERNAL = 'INTERNAL';
+    var CATEGORY_EXTERNAL = 'EXTERNAL';
+    var CATEGORY_PUBLIC = 'PUBLIC';
+    var BUILD_DATE = '2017-07-24 14:54:52';
+    var VERSION = '1.0.5-SNAPSHOT';
+  </script>
+  <link rel="stylesheet" href='./wro/imajnet.css' type="text/css" media="screen, projection">
+  <script type="text/javascript" src='./resources/js/lib/OpenLayers3/ol.js'></script>
+  <script type="text/javascript" src='./wro/imajnet.js'></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Imajnet</title>
+  <link rel="icon"
+        href="./resources/img/favicon/favicon-imajnet.ico"
+        type="image/x-icon"/>
+  <link rel="shortcut icon"
+        href="./resources/img/favicon/favicon-imajnet.ico"
+        type="image/x-icon"/>
+</head>
+<body>
+<script type="text/javascript">
+  CommonCore.page = 'map';
+</script>
+<div class="container" style="margin-left: 0 !important;">
+  <div id="notificationLoginContainer" class="notification">
+    <div id="notificationLogin">#{text}</div>
+  </div>
+  <!-- <div id="notificationRequestAccessContainer" class="notification"> -->
+  <!-- 	<div id="notificationRequestAccess"> -->
+  <!-- 		<a class="ui-notify-cross ui-notify-close" href="javascript: void(0);">x</a> -->
+  <!-- 		<div> -->
+
+
+  <!-- 		</div> -->
+  <!-- 		<div style="text-align: center;"> -->
+
+  <!-- 		</div> -->
+  <!-- 	</div> -->
+  <!-- </div> -->
+  <input type="text" id="focusTarget"/>
+  <div id="mapDockingContainer">
+    <div id="map">
+
+      <div id="popupImajnetLoginErrorMessage"></div>
+      <div id="mapMainMenuChooseMap" class="left mapMainMenuItem">
+        <div class="mapMainMenuChooseMapImage">
+          <img class="mapMainMenuChooseMapImage"
+               src="./resources/img/buttons/BTN-B4_Haut.PNG"
+               onmouseover="this.src='./resources/img/buttons/BTN-B4_Dessus.PNG'"
+               onmouseout="this.src='./resources/img/buttons/BTN-B4_Haut.PNG'"/>
+        </div>
+        <div id="mapMainMenuChooseMapItems">
+          <div class="mapMainMenuChooseMapItem">
+            <div>
+              <img
+                src="./resources/img/buttons/BTN-BB4-1_Off.PNG"
+                id="setemptyBaseLayer" class="mapMainMenuChooseMapItemImage"/>
+            </div>
+            <div>
+              Aucun
+            </div>
+          </div>
+          <div class="mapMainMenuChooseMapItem">
+            <div>
+              <img
+                src="./resources/img/buttons/BTN-BB4-2_Off.PNG"
+                id="setOSM" class="mapMainMenuChooseMapItemImage"/>
+            </div>
+            <div>
+              Open Street Map
+            </div>
+          </div>
+
+          <div class="mapMainMenuChooseMapItem">
+            <div>
+              <img
+                src="./resources/img/buttons/BTN-BB4-4_Off.PNG"
+                id="setOCM" class="mapMainMenuChooseMapItemImage"/>
+            </div>
+            <div>
+              Open Cycle Map
+            </div>
+          </div>
+          <div class="mapMainMenuChooseMapItem">
+            <div>
+              <img
+                src="./resources/img/buttons/BTN-BB4-4_Off.PNG"
+                id="setOTM" class="mapMainMenuChooseMapItemImage"/>
+            </div>
+            <div>
+              Transportation Map
+            </div>
+          </div>
+          <div id="bingLayers">
+            <div class="mapMainMenuChooseMapItem">
+              <div>
+                <img
+                  src="./resources/img/buttons/BTN-BB4-5_Off.PNG"
+                  id="setB_MAP" class="mapMainMenuChooseMapItemImage"/>
+              </div>
+              <div>
+                Bing route
+              </div>
+            </div>
+            <div class="mapMainMenuChooseMapItem">
+              <div>
+                <img
+                  src="./resources/img/buttons/BTN-BB4-6_Off.PNG"
+                  id="setB_SAT" class="mapMainMenuChooseMapItemImage"/>
+              </div>
+              <div>
+                Bing satellite
+              </div>
+            </div>
+            <div class="mapMainMenuChooseMapItem">
+              <div>
+                <img
+                  src="./resources/img/buttons/BTN-BB4-7_Off.PNG"
+                  id="setB_HYBRID" class="mapMainMenuChooseMapItemImage"/>
+              </div>
+              <div>
+                Bing route/satellite
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="popupGlobalTimeline" class="popupTemplate">
+        <div style="width: 370px;">
+          <div id="globalTimelineSlider"></div>
+          <div id="globalTimelineValues"></div>
+          <div class="clearLeft"></div>
+        </div>
+        <div class="popupContentContainer" style="margin-right: 10px;">
+          <input type="button" value="Annuler"
+                 onclick="LayerTimeline.hideGlobalTimeline();"
+                 class="dialogButton dialogButtonCancel"/> <input
+          id="globalButtonSave" type="button"
+          value="Enregistrer"
+          onclick="LayerTimeline.applyGlobalTimeline();"
+          class="dialogButton dialogButtonSave"/>
+        </div>
+      </div>
+    </div>
+    <div id="languageBar"></div>
+    <div id="languageBarComplete">
+      <div class="left languageItem">
+        <img
+          src="./resources/img/language/BTN_LG_pt_Dessus.png"
+          id="languageItemImage_fr" class="languageItemImage"/>
+      </div>
+      <div class="left languageItem">
+        <img
+          src="./resources/img/language/BTN_LG_es_Dessus.png"
+          id="languageItemImage_es" class="languageItemImage"/>
+      </div>
+      <div class="left languageItem">
+        <img
+          src="./resources/img/language/BTN_LG_en_Dessus.png"
+          id="languageItemImage_en" class="languageItemImage"/>
+      </div>
+      <div class="left languageItem">
+        <img
+          src="./resources/img/language/BTN_LG_fr_Dessus.png"
+          id="languageItemImage_fr" class="languageItemImage"/>
+      </div>
+      <div class="clearLeft"></div>
+    </div>
+  </div>
+</div>
+<div id="notificationLoginContainer" class="notification">
+  <div id="notificationLogin">#{text}</div>
+</div>
+<!-- <div id="notificationRequestAccessContainer" class="notification"> -->
+<!-- 	<div id="notificationRequestAccess"> -->
+<!-- 		<a class="ui-notify-cross ui-notify-close" href="javascript: void(0);">x</a> -->
+<!-- 		<div> -->
+
+
+<!-- 		</div> -->
+<!-- 		<div style="text-align: center;"> -->
+
+<!-- 		</div> -->
+<!-- 	</div> -->
+<!-- </div> -->
+</body>
+</html>
